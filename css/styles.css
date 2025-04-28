@@ -1,0 +1,945 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap'); /* Reset CSS moderne */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variables CSS pour les couleurs et polices */
+:root {
+    /* Palette de couleurs modernisée */
+    --couleur-primaire: #4361ee;
+    --couleur-primaire-light: #4895ef;
+    --couleur-secondaire: #2b2d42;
+    --couleur-accent: #f72585;
+    --couleur-texte: #2b2d42;
+    --couleur-texte-light: #6c757d;
+    --couleur-fond: #f8f9fa;
+    --couleur-fond-section: #ffffff;
+    --couleur-prix: #06d6a0;
+
+    /* Couleurs des catégories */
+    --couleur-categorie-1: #4cc9f0;
+    --couleur-categorie-2: #7209b7;
+    --couleur-categorie-3: #f72585;
+    --couleur-categorie-4: #06d6a0;
+    --couleur-categorie-5: #f9c74f;
+    --couleur-categorie-6: #4361ee;
+
+    /* Espacements et dimensions */
+    --espacement: 20px;
+    --border-radius-sm: 4px;
+    --border-radius: 8px;
+    --border-radius-lg: 16px;
+
+    /* Ombres */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+
+    /* Transitions */
+    --transition-rapide: 0.2s ease;
+    --transition: 0.3s ease;
+    --transition-lente: 0.5s ease;
+
+    /* Nouvelles variables pour l'accessibilité */
+    --focus-outline: 3px solid rgba(67, 97, 238, 0.5);
+    --focus-offset: 3px;
+    --contrast-ratio-min: 4.5; /* Ratio de contraste minimum recommandé */
+}
+
+/* Styles généraux */
+html {
+    scroll-behavior: smooth; /* Défilement fluide pour les ancres */
+    font-size: 100%; /* Permet le redimensionnement du texte dans les navigateurs */
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.7;
+    color: var(--couleur-texte);
+    background-color: var(--couleur-fond);
+    font-size: 16px;
+    overflow-x: hidden; /* Évite les barres de défilement horizontales */
+    text-rendering: optimizeLegibility; /* Améliore le rendu du texte */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+    margin-bottom: var(--espacement);
+    color: var(--couleur-secondaire);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-top: 0; /* Évite l'espace supplémentaire en haut */
+}
+
+h2 {
+    font-size: 2rem;
+    scroll-margin-top: 80px; /* Espace pour les ancres avec une navbar fixe */
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h4 {
+    font-size: 1.25rem;
+}
+
+p {
+    margin-bottom: var(--espacement);
+    color: var(--couleur-texte-light);
+}
+
+a {
+    color: var(--couleur-primaire);
+    text-decoration: none;
+    transition: all var(--transition);
+    position: relative;
+    /* Amélioration de l'accessibilité */
+    text-underline-offset: 0.15em;
+}
+
+a:hover {
+    color: var(--couleur-accent);
+}
+
+a:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-offset);
+    text-decoration: none;
+    border-radius: 2px;
+}
+
+a:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--couleur-accent);
+    transition: width var(--transition);
+}
+
+a:hover:after {
+    width: 100%;
+}
+
+ul {
+    list-style-position: inside;
+    margin-bottom: var(--espacement);
+}
+
+/* Amélioration de l'accessibilité pour le focus */
+:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-offset);
+    border-radius: 2px;
+}
+
+/* Skip to content link pour l'accessibilité */
+.skip-to-content {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: 9999;
+    background: var(--couleur-primaire);
+    color: white;
+    padding: 10px 15px;
+    border-radius: var(--border-radius-sm);
+    text-decoration: none;
+}
+
+.skip-to-content:focus {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10px;
+    width: auto;
+    height: auto;
+}
+
+/* Header et navigation */
+header {
+    background: linear-gradient(135deg, var(--couleur-secondaire), #3a4256);
+    color: white;
+    padding: calc(var(--espacement) * 1.5) var(--espacement);
+    text-align: center;
+    box-shadow: var(--shadow);
+    position: relative; /* Pour le positionnement du skip-to-content */
+}
+
+header h1 {
+    color: white;
+    margin-bottom: 15px;
+    font-size: 2.2rem;
+    font-weight: 800;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: linear-gradient(135deg, var(--couleur-secondaire), #3a4256);
+    padding: 10px 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav.scrolled {
+    padding: 8px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    gap: 20px;
+    margin: 0;
+}
+
+nav a {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 30px;
+    transition: all var(--transition);
+    letter-spacing: 0.02em;
+    position: relative;
+}
+
+nav a:after {
+    display: none;
+}
+
+nav a:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+nav a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Indicateur de progression de la page */
+.progress-container {
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+}
+
+.progress-bar {
+    height: 4px;
+    background: var(--couleur-accent);
+    width: 0%;
+    transition: width 0.1s ease;
+}
+
+/* Sections principales */
+main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: var(--espacement);
+    min-height: 70vh; /* Assure que le contenu principal prend suffisamment de place */
+}
+
+section {
+    margin-bottom: 40px;
+    padding: calc(var(--espacement) * 1.5);
+    background-color: var(--couleur-fond-section);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow);
+    transition: transform var(--transition), box-shadow var(--transition);
+    scroll-margin-top: 80px; /* Pour les ancres avec une navbar fixe */
+}
+
+section:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+section h2 {
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+section h2:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 60px;
+    background: linear-gradient(90deg, var(--couleur-primaire), var(--couleur-primaire-light));
+    border-radius: 3px;
+    transition: width var(--transition-lente);
+}
+
+section:hover h2:after {
+    width: 100px;
+}
+
+/* Section services */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.service-item {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition);
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer; /* Indique que l'élément est interactif */
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+.service-item:focus-within {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-offset);
+}
+
+.service-item:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--couleur-primaire);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition);
+}
+
+.service-item:hover:before,
+.service-item:focus-within:before {
+    transform: scaleX(1);
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+    background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(67, 97, 238, 0.05));
+}
+
+.service-item:hover .service-icon,
+.service-item:focus-within .service-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.service-item:nth-child(1) .service-icon {
+    background: linear-gradient(135deg, rgba(76, 201, 240, 0.1), rgba(76, 201, 240, 0.05));
+}
+
+.service-item:nth-child(2) .service-icon {
+    background: linear-gradient(135deg, rgba(114, 9, 183, 0.1), rgba(114, 9, 183, 0.05));
+}
+
+.service-item:nth-child(3) .service-icon {
+    background: linear-gradient(135deg, rgba(247, 37, 133, 0.1), rgba(247, 37, 133, 0.05));
+}
+
+.service-item:nth-child(4) .service-icon {
+    background: linear-gradient(135deg, rgba(6, 214, 160, 0.1), rgba(6, 214, 160, 0.05));
+}
+
+.service-item:nth-child(5) .service-icon {
+    background: linear-gradient(135deg, rgba(249, 199, 79, 0.1), rgba(249, 199, 79, 0.05));
+}
+
+.service-item:nth-child(6) .service-icon {
+    background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(67, 97, 238, 0.05));
+}
+
+.service-item:nth-child(1):before {
+    background: var(--couleur-categorie-1);
+}
+
+.service-item:nth-child(2):before {
+    background: var(--couleur-categorie-2);
+}
+
+.service-item:nth-child(3):before {
+    background: var(--couleur-categorie-3);
+}
+
+.service-item:nth-child(4):before {
+    background: var(--couleur-categorie-4);
+}
+
+.service-item:nth-child(5):before {
+    background: var(--couleur-categorie-5);
+}
+
+.service-item:nth-child(6):before {
+    background: var(--couleur-categorie-6);
+}
+
+.service-item h3 {
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    transition: color var(--transition);
+}
+
+.service-item:hover h3,
+.service-item:focus-within h3 {
+    color: var(--couleur-primaire);
+}
+
+.service-item p {
+    color: var(--couleur-texte-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Icônes des services (à remplacer par de vraies icônes) */
+.icon-maintenance, .icon-dev, .icon-security,
+.icon-cloud, .icon-network, .icon-training {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative;
+    transition: all var(--transition);
+}
+
+.service-item:nth-child(1) .icon-maintenance {
+    background-color: var(--couleur-categorie-1);
+}
+
+.service-item:nth-child(2) .icon-dev {
+    background-color: var(--couleur-categorie-2);
+}
+
+.service-item:nth-child(3) .icon-security {
+    background-color: var(--couleur-categorie-3);
+}
+
+.service-item:nth-child(4) .icon-cloud {
+    background-color: var(--couleur-categorie-4);
+}
+
+.service-item:nth-child(5) .icon-network {
+    background-color: var(--couleur-categorie-5);
+}
+
+.service-item:nth-child(6) .icon-training {
+    background-color: var(--couleur-categorie-6);
+}
+
+/* Section tarifs */
+.tarif-section {
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 40px;
+}
+
+.tarif-section:last-of-type {
+    border-bottom: none;
+}
+
+.tarif-category {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    padding-left: 18px;
+    position: relative;
+    font-weight: 600;
+}
+
+.tarif-category::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background-color: var(--couleur-primaire);
+    border-radius: 3px;
+}
+
+.tarif-section:nth-child(1) .tarif-category::before {
+    background: linear-gradient(to bottom, var(--couleur-categorie-1), var(--couleur-categorie-1));
+}
+
+.tarif-section:nth-child(2) .tarif-category::before {
+    background: linear-gradient(to bottom, var(--couleur-categorie-2), var(--couleur-categorie-2));
+}
+
+.tarif-section:nth-child(3) .tarif-category::before {
+    background: linear-gradient(to bottom, var(--couleur-categorie-3), var(--couleur-categorie-3));
+}
+
+.tarif-section:nth-child(4) .tarif-category::before {
+    background: linear-gradient(to bottom, var(--couleur-categorie-4), var(--couleur-categorie-4));
+}
+
+.tarif-section:nth-child(5) .tarif-category::before {
+    background: linear-gradient(to bottom, var(--couleur-categorie-5), var(--couleur-categorie-5));
+}
+
+.tarif-section:nth-child(6) .tarif-category::before {
+    background: linear-gradient(to bottom, var(--couleur-categorie-6), var(--couleur-categorie-6));
+}
+
+.tarif-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.tarif-card {
+    flex: 1;
+    min-width: 250px;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition);
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer; /* Indique que l'élément est interactif */
+}
+
+.tarif-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+.tarif-card:focus-within {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-offset);
+}
+
+.tarif-card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--couleur-prix);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition);
+}
+
+.tarif-card:hover:before,
+.tarif-card:focus-within:before {
+    transform: scaleX(1);
+}
+
+.tarif-card h4 {
+    color: var(--couleur-secondaire);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.prix {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--couleur-prix);
+    margin-bottom: 20px;
+    display: block;
+}
+
+.tarif-card ul {
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+
+.tarif-card li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    padding-left: 28px;
+    color: var(--couleur-texte-light);
+}
+
+.tarif-card li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--couleur-prix);
+    font-weight: bold;
+}
+
+.tarif-card li:last-child {
+    border-bottom: none;
+}
+
+.note {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--couleur-texte-light);
+    margin-top: 15px;
+    display: block;
+}
+
+/* Badge "Populaire" pour les tarifs */
+.badge-populaire {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--couleur-accent);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transform: rotate(5deg);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Informations supplémentaires */
+.info-supplementaire {
+    background-color: rgba(247, 250, 252, 0.8);
+    padding: 25px;
+    border-left: 4px solid var(--couleur-accent);
+    border-radius: var(--border-radius);
+    margin-top: 40px;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition);
+}
+
+.info-supplementaire:hover {
+    box-shadow: var(--shadow);
+    border-left-width: 6px;
+}
+
+.info-supplementaire h3 {
+    margin-bottom: 15px;
+    color: var(--couleur-accent);
+    font-weight: 600;
+}
+
+.info-supplementaire ul {
+    list-style-type: none;
+    margin-left: 5px;
+}
+
+.info-supplementaire li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 25px;
+    color: var(--couleur-texte-light);
+}
+
+.info-supplementaire li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--couleur-accent);
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Formulaire de contact */
+form {
+    display: grid;
+    gap: 20px;
+    max-width: 600px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--couleur-texte);
+    font-size: 0.95rem;
+}
+
+/* Astérisque pour les champs obligatoires */
+.required:after {
+    content: "*";
+    color: var(--couleur-accent);
+    margin-left: 4px;
+}
+
+input, textarea, select {
+    padding: 12px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    font-family: inherit;
+    transition: all var(--transition);
+    background-color: #fff;
+    color: var(--couleur-texte);
+    font-size: 1rem;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--couleur-primaire);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+}
+
+/* Styles pour les états d'erreur */
+input.error, textarea.error, select.error {
+    border-color: var(--couleur-accent);
+    background-color: rgba(247, 37, 133, 0.05);
+}
+
+.error-message {
+    color: var(--couleur-accent);
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+button {
+    background: linear-gradient(135deg, var(--couleur-primaire), var(--couleur-primaire-light));
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all var(--transition);
+    box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+    letter-spacing: 0.02em;
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover {
+    background: linear-gradient(135deg, var(--couleur-primaire-light), var(--couleur-primaire));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.4);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(67, 97, 238, 0.3);
+}
+
+/* Effet de ripple pour les boutons */
+button .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* États de chargement pour les boutons */
+button.loading {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+button.loading:after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    right: 20px;
+    margin-top: -10px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.contact-container {
+    display: flex;
+    gap: 30px;
+    margin: 40px 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.contact-card {
+    flex: 1;
+    min-width: 250px;
+    max-width: 350px;
+    padding: 35px;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    transition: all var(--transition);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+.contact-card:focus-within {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-offset);
+}
+
+.contact-card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--couleur-primaire), var(--couleur-primaire-light));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition);
+}
+
+.contact-card:hover:before,
+.contact-card:focus-within:before {
+    transform: scaleX(1);
+}
+
+.contact-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(67, 97, 238, 0.05));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+}
+
+.contact-card:hover .contact-icon,
+.contact-card:focus-within .contact-icon {
+    transform: scale(1.1);
+}
+
+/* Icônes temporaires - à remplacer par de vraies icônes */
+.icon-email, .icon-phone {
+    width: 30px;
+    height: 30px;
+    background-color: var(--couleur-primaire);
+    border-radius: 50%;
+    position: relative;
+}
+
+.contact-card h3 {
+    margin-bottom: 15px;
+    color: var(--couleur-secondaire);
+    font-weight: 600;
+}
+
+.contact-card p {
+    margin-bottom: 5px;
+}
+
+.contact-card a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--couleur-primaire);
+    transition: all var(--transition);
+    display: inline-block;
+}
+
+.contact-card a:hover {
+    color: var(--couleur-accent);
+    transform: translateY(-2px);
+}
+
+.contact-card a:after {
+    display: none;
+}
+
+.contact-description {
+    color: var(--couleur-texte-light);
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.contact-info {
+    background-color: rgba(247, 250, 252, 0.8);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    margin-top: 20px;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition);
+}
+
+.contact-info:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-3px);
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+    color: var(--couleur-texte-light);
+}
+
+.contact-info p:last-child {
+    margin-bottom: 0;
+}
+
